@@ -1,0 +1,450 @@
+{
+  "n_witnesses": 50,
+  "n_loci": 1000,
+  "n_nodes_total": 50,
+  "n_lost_ancestors": 0,
+  "loss_rate_realized": 0.0,
+  "metric_height": 6,
+  "metric_height_mean": 4.2,
+  "topo_height": 6,
+  "n_generations_set": 6,
+  "extant_archetype": true,
+  "root_witness": "w1",
+  "extant_internal_ancestors": [
+    "w1",
+    "w2",
+    "w3",
+    "w7",
+    "w15",
+    "w29",
+    "w4",
+    "w30",
+    "w8",
+    "w5",
+    "w10",
+    "w19",
+    "w31",
+    "w11",
+    "w20",
+    "w35",
+    "w34",
+    "w6",
+    "w12",
+    "w21",
+    "w16",
+    "w14",
+    "w23",
+    "w37",
+    "w33"
+  ],
+  "n_extant_internal_ancestors": 25,
+  "n_contaminated": 15,
+  "contaminations": [
+    {
+      "witness": "w40",
+      "source": "w21",
+      "spans": [
+        [
+          159,
+          209
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 12
+    },
+    {
+      "witness": "w18",
+      "source": "w33",
+      "spans": [
+        [
+          353,
+          403
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 17
+    },
+    {
+      "witness": "w45",
+      "source": "w39",
+      "spans": [
+        [
+          841,
+          891
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 16
+    },
+    {
+      "witness": "w20",
+      "source": "w46",
+      "spans": [
+        [
+          332,
+          382
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 17
+    },
+    {
+      "witness": "w35",
+      "source": "w40",
+      "spans": [
+        [
+          766,
+          816
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 14
+    },
+    {
+      "witness": "w6",
+      "source": "w10",
+      "spans": [
+        [
+          776,
+          826
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 11
+    },
+    {
+      "witness": "w37",
+      "source": "w12",
+      "spans": [
+        [
+          74,
+          124
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 10
+    },
+    {
+      "witness": "w39",
+      "source": "w45",
+      "spans": [
+        [
+          642,
+          692
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 23
+    },
+    {
+      "witness": "w17",
+      "source": "w45",
+      "spans": [
+        [
+          196,
+          246
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 20
+    },
+    {
+      "witness": "w28",
+      "source": "w23",
+      "spans": [
+        [
+          204,
+          254
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 14
+    },
+    {
+      "witness": "w46",
+      "source": "w11",
+      "spans": [
+        [
+          184,
+          234
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 25
+    },
+    {
+      "witness": "w36",
+      "source": "w40",
+      "spans": [
+        [
+          821,
+          871
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 16
+    },
+    {
+      "witness": "w33",
+      "source": "w13",
+      "spans": [
+        [
+          192,
+          242
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 13
+    },
+    {
+      "witness": "w27",
+      "source": "w25",
+      "spans": [
+        [
+          476,
+          526
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 8
+    },
+    {
+      "witness": "w13",
+      "source": "w30",
+      "spans": [
+        [
+          257,
+          307
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 16
+    }
+  ],
+  "n_hot_loci": 200,
+  "hot_loci": [
+    3,
+    4,
+    8,
+    10,
+    11,
+    20,
+    21,
+    29,
+    34,
+    43,
+    47,
+    52,
+    64,
+    67,
+    76,
+    77,
+    83,
+    90,
+    93,
+    94,
+    95,
+    114,
+    118,
+    119,
+    124,
+    127,
+    131,
+    136,
+    138,
+    149,
+    150,
+    157,
+    195,
+    200,
+    201,
+    205,
+    206,
+    215,
+    216,
+    217,
+    220,
+    225,
+    229,
+    231,
+    236,
+    246,
+    259,
+    260,
+    262,
+    267,
+    268,
+    269,
+    274,
+    277,
+    295,
+    297,
+    299,
+    306,
+    309,
+    321,
+    324,
+    331,
+    337,
+    340,
+    360,
+    368,
+    373,
+    379,
+    381,
+    391,
+    396,
+    399,
+    401,
+    402,
+    404,
+    408,
+    415,
+    421,
+    431,
+    433,
+    435,
+    436,
+    448,
+    455,
+    459,
+    471,
+    472,
+    477,
+    478,
+    479,
+    481,
+    488,
+    489,
+    497,
+    500,
+    506,
+    508,
+    510,
+    511,
+    518,
+    523,
+    524,
+    531,
+    543,
+    544,
+    555,
+    563,
+    565,
+    577,
+    585,
+    591,
+    597,
+    603,
+    607,
+    611,
+    615,
+    621,
+    628,
+    638,
+    639,
+    647,
+    656,
+    657,
+    658,
+    660,
+    664,
+    669,
+    690,
+    698,
+    699,
+    701,
+    709,
+    712,
+    714,
+    717,
+    719,
+    723,
+    728,
+    738,
+    740,
+    743,
+    748,
+    756,
+    758,
+    759,
+    760,
+    763,
+    777,
+    783,
+    786,
+    789,
+    794,
+    797,
+    798,
+    802,
+    806,
+    807,
+    813,
+    816,
+    818,
+    823,
+    826,
+    838,
+    842,
+    843,
+    849,
+    858,
+    864,
+    867,
+    868,
+    870,
+    873,
+    874,
+    875,
+    878,
+    883,
+    886,
+    893,
+    894,
+    899,
+    906,
+    910,
+    911,
+    914,
+    917,
+    920,
+    924,
+    941,
+    943,
+    964,
+    965,
+    967,
+    969,
+    972,
+    976,
+    978,
+    982,
+    983,
+    988,
+    989
+  ],
+  "polygenetic_loci": 378,
+  "polygenetic_states": 396,
+  "polygenesis_in_hot_loci": 198,
+  "polygenesis_in_cold_loci": 180,
+  "polygenesis_rate_hot": 0.99,
+  "polygenesis_rate_cold": 0.225,
+  "missing_cells": 0,
+  "params": {
+    "error_rate": 0.05,
+    "n_states": 9,
+    "allow_reversion": true,
+    "loss_rate": 0,
+    "max_children": 4,
+    "n_generations": 6,
+    "extant_archetype": true,
+    "hot_loci_fraction": 0.2,
+    "hot_loci_factor": 6,
+    "hot_loci_states": 2,
+    "contamination_rate": 0.3,
+    "contamination_strength": 0.05,
+    "lacuna_rate": 0.0,
+    "seed": 1282579468
+  }
+}

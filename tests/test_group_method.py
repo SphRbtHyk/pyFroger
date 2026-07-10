@@ -194,6 +194,23 @@ class TestGroupMethod(unittest.TestCase):
             "((MS_B,MS_C)α,(MS_D,MS_E,MS_F)β)MS_A;"
         )
 
+    def test_orient_stemma_groups(self):
+        """Tests that orienting the stemma by mentioning
+        the faulty groups behaves as expected."""
+        print(self.stemma.list_apparatus.group_by_frequency())
+        self.stemma.orient_stemma(
+            faulty_groups=[{"MS_D", "MS_C"}]
+        )
+        # Reset root
+        self.stemma.build_tree()
+
+    def test_resolve_anomaly(self):
+        """Tests that resolving anomalies behaves as expected.
+        """
+        self.assertEqual(self.stemma_contaminated._resolve_anomaly(),
+                         {'dismissed': {frozenset({'MS_E', 'MS_D'})},
+                          'retained': []})
+
 
 if __name__ == "__main__":
     unittest.main()

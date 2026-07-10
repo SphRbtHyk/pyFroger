@@ -1,0 +1,497 @@
+{
+  "n_witnesses": 50,
+  "n_loci": 1000,
+  "n_nodes_total": 50,
+  "n_lost_ancestors": 0,
+  "loss_rate_realized": 0.0,
+  "metric_height": 6,
+  "metric_height_mean": 3.6,
+  "topo_height": 6,
+  "n_generations_set": 6,
+  "extant_archetype": true,
+  "root_witness": "w1",
+  "extant_internal_ancestors": [
+    "w1",
+    "w2",
+    "w6",
+    "w13",
+    "w24",
+    "w35",
+    "w7",
+    "w14",
+    "w3",
+    "w25",
+    "w15",
+    "w4",
+    "w27",
+    "w28",
+    "w5",
+    "w10",
+    "w20",
+    "w11",
+    "w31",
+    "w43",
+    "w22",
+    "w29",
+    "w33",
+    "w9"
+  ],
+  "n_extant_internal_ancestors": 24,
+  "n_contaminated": 19,
+  "contaminations": [
+    {
+      "witness": "w2",
+      "source": "w10",
+      "spans": [
+        [
+          491,
+          541
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 11
+    },
+    {
+      "witness": "w24",
+      "source": "w50",
+      "spans": [
+        [
+          388,
+          438
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 15
+    },
+    {
+      "witness": "w15",
+      "source": "w23",
+      "spans": [
+        [
+          555,
+          605
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 14
+    },
+    {
+      "witness": "w49",
+      "source": "w32",
+      "spans": [
+        [
+          27,
+          77
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 18
+    },
+    {
+      "witness": "w4",
+      "source": "w11",
+      "spans": [
+        [
+          363,
+          413
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 15
+    },
+    {
+      "witness": "w5",
+      "source": "w27",
+      "spans": [
+        [
+          225,
+          275
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 17
+    },
+    {
+      "witness": "w16",
+      "source": "w5",
+      "spans": [
+        [
+          708,
+          758
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 11
+    },
+    {
+      "witness": "w10",
+      "source": "w42",
+      "spans": [
+        [
+          771,
+          821
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 16
+    },
+    {
+      "witness": "w20",
+      "source": "w4",
+      "spans": [
+        [
+          400,
+          450
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 13
+    },
+    {
+      "witness": "w39",
+      "source": "w12",
+      "spans": [
+        [
+          510,
+          560
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 13
+    },
+    {
+      "witness": "w11",
+      "source": "w29",
+      "spans": [
+        [
+          504,
+          554
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 14
+    },
+    {
+      "witness": "w23",
+      "source": "w39",
+      "spans": [
+        [
+          884,
+          934
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 13
+    },
+    {
+      "witness": "w12",
+      "source": "w10",
+      "spans": [
+        [
+          795,
+          845
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 5
+    },
+    {
+      "witness": "w36",
+      "source": "w39",
+      "spans": [
+        [
+          59,
+          109
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 14
+    },
+    {
+      "witness": "w50",
+      "source": "w49",
+      "spans": [
+        [
+          659,
+          709
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 17
+    },
+    {
+      "witness": "w34",
+      "source": "w18",
+      "spans": [
+        [
+          462,
+          512
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 21
+    },
+    {
+      "witness": "w40",
+      "source": "w26",
+      "spans": [
+        [
+          44,
+          94
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 19
+    },
+    {
+      "witness": "w41",
+      "source": "w43",
+      "spans": [
+        [
+          595,
+          645
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 25
+    },
+    {
+      "witness": "w42",
+      "source": "w31",
+      "spans": [
+        [
+          360,
+          410
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 18
+    }
+  ],
+  "n_hot_loci": 200,
+  "hot_loci": [
+    8,
+    9,
+    18,
+    20,
+    31,
+    34,
+    36,
+    43,
+    45,
+    46,
+    54,
+    55,
+    61,
+    71,
+    75,
+    77,
+    81,
+    90,
+    91,
+    103,
+    104,
+    107,
+    111,
+    112,
+    115,
+    116,
+    126,
+    131,
+    145,
+    148,
+    149,
+    150,
+    153,
+    156,
+    162,
+    165,
+    167,
+    178,
+    183,
+    187,
+    208,
+    215,
+    221,
+    227,
+    228,
+    236,
+    238,
+    252,
+    259,
+    264,
+    269,
+    274,
+    280,
+    281,
+    282,
+    289,
+    295,
+    302,
+    305,
+    327,
+    330,
+    332,
+    333,
+    335,
+    347,
+    357,
+    370,
+    376,
+    386,
+    393,
+    394,
+    398,
+    404,
+    410,
+    411,
+    412,
+    420,
+    423,
+    425,
+    427,
+    435,
+    440,
+    443,
+    448,
+    453,
+    455,
+    456,
+    459,
+    469,
+    472,
+    477,
+    482,
+    483,
+    485,
+    493,
+    494,
+    495,
+    500,
+    502,
+    504,
+    505,
+    512,
+    514,
+    526,
+    529,
+    535,
+    543,
+    548,
+    551,
+    552,
+    555,
+    562,
+    565,
+    570,
+    575,
+    577,
+    579,
+    582,
+    594,
+    595,
+    613,
+    620,
+    628,
+    640,
+    642,
+    643,
+    646,
+    654,
+    663,
+    674,
+    675,
+    678,
+    682,
+    683,
+    687,
+    695,
+    698,
+    699,
+    700,
+    703,
+    709,
+    710,
+    711,
+    712,
+    716,
+    718,
+    719,
+    723,
+    725,
+    731,
+    742,
+    758,
+    773,
+    775,
+    782,
+    794,
+    798,
+    801,
+    811,
+    829,
+    832,
+    835,
+    836,
+    843,
+    846,
+    847,
+    863,
+    883,
+    891,
+    894,
+    900,
+    901,
+    916,
+    918,
+    925,
+    927,
+    928,
+    939,
+    943,
+    947,
+    948,
+    949,
+    950,
+    951,
+    952,
+    953,
+    955,
+    958,
+    961,
+    969,
+    972,
+    973,
+    975,
+    981,
+    983,
+    988,
+    989,
+    992,
+    993,
+    997
+  ],
+  "polygenetic_loci": 393,
+  "polygenetic_states": 417,
+  "polygenesis_in_hot_loci": 200,
+  "polygenesis_in_cold_loci": 193,
+  "polygenesis_rate_hot": 1.0,
+  "polygenesis_rate_cold": 0.241,
+  "missing_cells": 0,
+  "params": {
+    "error_rate": 0.05,
+    "n_states": 9,
+    "allow_reversion": true,
+    "loss_rate": 0,
+    "max_children": 4,
+    "n_generations": 6,
+    "extant_archetype": true,
+    "hot_loci_fraction": 0.2,
+    "hot_loci_factor": 6,
+    "hot_loci_states": 2,
+    "contamination_rate": 0.3,
+    "contamination_strength": 0.05,
+    "lacuna_rate": 0.0,
+    "seed": 2545963665
+  }
+}

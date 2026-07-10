@@ -1,0 +1,279 @@
+{
+  "n_witnesses": 50,
+  "n_loci": 1000,
+  "n_nodes_total": 50,
+  "n_lost_ancestors": 0,
+  "loss_rate_realized": 0.0,
+  "metric_height": 6,
+  "metric_height_mean": 3.78,
+  "topo_height": 6,
+  "n_generations_set": 6,
+  "extant_archetype": true,
+  "root_witness": "w1",
+  "extant_internal_ancestors": [
+    "w1",
+    "w2",
+    "w5",
+    "w13",
+    "w22",
+    "w33",
+    "w23",
+    "w3",
+    "w4",
+    "w9",
+    "w15",
+    "w11",
+    "w10",
+    "w24",
+    "w25",
+    "w18",
+    "w37",
+    "w6",
+    "w14",
+    "w39",
+    "w26",
+    "w29",
+    "w34",
+    "w17",
+    "w41",
+    "w38"
+  ],
+  "n_extant_internal_ancestors": 26,
+  "n_contaminated": 9,
+  "contaminations": [
+    {
+      "witness": "w9",
+      "source": "w30",
+      "spans": [
+        [
+          618,
+          668
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 7
+    },
+    {
+      "witness": "w10",
+      "source": "w9",
+      "spans": [
+        [
+          643,
+          693
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 4
+    },
+    {
+      "witness": "w6",
+      "source": "w37",
+      "spans": [
+        [
+          364,
+          414
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 8
+    },
+    {
+      "witness": "w45",
+      "source": "w32",
+      "spans": [
+        [
+          102,
+          152
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 28
+    },
+    {
+      "witness": "w36",
+      "source": "w40",
+      "spans": [
+        [
+          244,
+          294
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 15
+    },
+    {
+      "witness": "w40",
+      "source": "w36",
+      "spans": [
+        [
+          941,
+          991
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 18
+    },
+    {
+      "witness": "w46",
+      "source": "w31",
+      "spans": [
+        [
+          767,
+          817
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 21
+    },
+    {
+      "witness": "w27",
+      "source": "w38",
+      "spans": [
+        [
+          284,
+          334
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 20
+    },
+    {
+      "witness": "w28",
+      "source": "w23",
+      "spans": [
+        [
+          858,
+          908
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 17
+    }
+  ],
+  "n_hot_loci": 100,
+  "hot_loci": [
+    20,
+    37,
+    41,
+    49,
+    50,
+    56,
+    62,
+    79,
+    97,
+    125,
+    127,
+    128,
+    142,
+    143,
+    146,
+    158,
+    161,
+    163,
+    164,
+    191,
+    193,
+    195,
+    196,
+    198,
+    199,
+    215,
+    240,
+    261,
+    264,
+    275,
+    278,
+    300,
+    308,
+    313,
+    320,
+    340,
+    345,
+    346,
+    348,
+    363,
+    376,
+    384,
+    393,
+    396,
+    400,
+    404,
+    414,
+    423,
+    453,
+    455,
+    472,
+    497,
+    498,
+    518,
+    535,
+    544,
+    565,
+    568,
+    579,
+    582,
+    583,
+    585,
+    603,
+    628,
+    632,
+    633,
+    671,
+    675,
+    692,
+    693,
+    718,
+    726,
+    742,
+    751,
+    756,
+    758,
+    796,
+    814,
+    818,
+    823,
+    833,
+    840,
+    844,
+    852,
+    861,
+    874,
+    877,
+    882,
+    898,
+    927,
+    929,
+    930,
+    934,
+    935,
+    944,
+    950,
+    961,
+    964,
+    985,
+    987
+  ],
+  "polygenetic_loci": 334,
+  "polygenetic_states": 358,
+  "polygenesis_in_hot_loci": 100,
+  "polygenesis_in_cold_loci": 234,
+  "polygenesis_rate_hot": 1.0,
+  "polygenesis_rate_cold": 0.26,
+  "missing_cells": 0,
+  "params": {
+    "error_rate": 0.05,
+    "n_states": 9,
+    "allow_reversion": true,
+    "loss_rate": 0,
+    "max_children": 4,
+    "n_generations": 6,
+    "extant_archetype": true,
+    "hot_loci_fraction": 0.1,
+    "hot_loci_factor": 6,
+    "hot_loci_states": 2,
+    "contamination_rate": 0.2,
+    "contamination_strength": 0.05,
+    "lacuna_rate": 0.0,
+    "seed": 1181958997
+  }
+}

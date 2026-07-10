@@ -1,0 +1,1 @@
+"""Evaluate the capacity of an algorithm to detect contamination."""

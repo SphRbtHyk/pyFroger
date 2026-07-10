@@ -1,0 +1,499 @@
+{
+  "n_witnesses": 50,
+  "n_loci": 1000,
+  "n_nodes_total": 50,
+  "n_lost_ancestors": 0,
+  "loss_rate_realized": 0.0,
+  "metric_height": 6,
+  "metric_height_mean": 3.6,
+  "topo_height": 6,
+  "n_generations_set": 6,
+  "extant_archetype": true,
+  "root_witness": "w1",
+  "extant_internal_ancestors": [
+    "w1",
+    "w2",
+    "w6",
+    "w16",
+    "w26",
+    "w35",
+    "w3",
+    "w10",
+    "w27",
+    "w7",
+    "w20",
+    "w28",
+    "w4",
+    "w37",
+    "w11",
+    "w21",
+    "w38",
+    "w19",
+    "w33",
+    "w5",
+    "w22",
+    "w36",
+    "w40"
+  ],
+  "n_extant_internal_ancestors": 23,
+  "n_contaminated": 36,
+  "contaminations": [
+    {
+      "witness": "w2",
+      "source": "w31",
+      "spans": [
+        [
+          246,
+          296
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 9
+    },
+    {
+      "witness": "w6",
+      "source": "w22",
+      "spans": [
+        [
+          561,
+          611
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 15
+    },
+    {
+      "witness": "w16",
+      "source": "w50",
+      "spans": [
+        [
+          230,
+          280
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 21
+    },
+    {
+      "witness": "w26",
+      "source": "w14",
+      "spans": [
+        [
+          234,
+          284
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 11
+    },
+    {
+      "witness": "w35",
+      "source": "w11",
+      "spans": [
+        [
+          397,
+          447
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 10
+    },
+    {
+      "witness": "w41",
+      "source": "w47",
+      "spans": [
+        [
+          295,
+          345
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 15
+    },
+    {
+      "witness": "w10",
+      "source": "w42",
+      "spans": [
+        [
+          522,
+          572
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 21
+    },
+    {
+      "witness": "w42",
+      "source": "w32",
+      "spans": [
+        [
+          742,
+          792
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 19
+    },
+    {
+      "witness": "w7",
+      "source": "w17",
+      "spans": [
+        [
+          472,
+          522
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 10
+    },
+    {
+      "witness": "w28",
+      "source": "w24",
+      "spans": [
+        [
+          473,
+          523
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 12
+    },
+    {
+      "witness": "w29",
+      "source": "w8",
+      "spans": [
+        [
+          221,
+          271
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 10
+    },
+    {
+      "witness": "w4",
+      "source": "w2",
+      "spans": [
+        [
+          742,
+          792
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 5
+    },
+    {
+      "witness": "w37",
+      "source": "w30",
+      "spans": [
+        [
+          626,
+          676
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 9
+    },
+    {
+      "witness": "w43",
+      "source": "w50",
+      "spans": [
+        [
+          374,
+          424
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 20
+    },
+    {
+      "witness": "w46",
+      "source": "w39",
+      "spans": [
+        [
+          373,
+          423
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 12
+    },
+    {
+      "witness": "w21",
+      "source": "w31",
+      "spans": [
+        [
+          384,
+          434
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 6
+    },
+    {
+      "witness": "w47",
+      "source": "w32",
+      "spans": [
+        [
+          675,
+          725
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 19
+    },
+    {
+      "witness": "w17",
+      "source": "w12",
+      "spans": [
+        [
+          785,
+          835
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 13
+    },
+    {
+      "witness": "w48",
+      "source": "w22",
+      "spans": [
+        [
+          411,
+          461
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 13
+    },
+    {
+      "witness": "w33",
+      "source": "w39",
+      "spans": [
+        [
+          887,
+          937
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 12
+    },
+    {
+      "witness": "w5",
+      "source": "w19",
+      "spans": [
+        [
+          245,
+          295
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 13
+    },
+    {
+      "witness": "w13",
+      "source": "w22",
+      "spans": [
+        [
+          113,
+          163
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 13
+    },
+    {
+      "witness": "w32",
+      "source": "w15",
+      "spans": [
+        [
+          437,
+          487
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 11
+    },
+    {
+      "witness": "w22",
+      "source": "w44",
+      "spans": [
+        [
+          624,
+          674
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 14
+    },
+    {
+      "witness": "w14",
+      "source": "w19",
+      "spans": [
+        [
+          159,
+          209
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 11
+    },
+    {
+      "witness": "w15",
+      "source": "w49",
+      "spans": [
+        [
+          183,
+          233
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 23
+    },
+    {
+      "witness": "w25",
+      "source": "w15",
+      "spans": [
+        [
+          874,
+          924
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 14
+    },
+    {
+      "witness": "w8",
+      "source": "w29",
+      "spans": [
+        [
+          7,
+          57
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 11
+    },
+    {
+      "witness": "w34",
+      "source": "w20",
+      "spans": [
+        [
+          563,
+          613
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 3
+    },
+    {
+      "witness": "w40",
+      "source": "w32",
+      "spans": [
+        [
+          907,
+          957
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 9
+    },
+    {
+      "witness": "w9",
+      "source": "w40",
+      "spans": [
+        [
+          246,
+          296
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 19
+    },
+    {
+      "witness": "w44",
+      "source": "w10",
+      "spans": [
+        [
+          575,
+          625
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 19
+    },
+    {
+      "witness": "w23",
+      "source": "w37",
+      "spans": [
+        [
+          838,
+          888
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 15
+    },
+    {
+      "witness": "w50",
+      "source": "w2",
+      "spans": [
+        [
+          817,
+          867
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 10
+    },
+    {
+      "witness": "w45",
+      "source": "w9",
+      "spans": [
+        [
+          172,
+          222
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 17
+    },
+    {
+      "witness": "w30",
+      "source": "w13",
+      "spans": [
+        [
+          707,
+          757
+        ]
+      ],
+      "span_len": 50,
+      "n_changed": 17
+    }
+  ],
+  "n_hot_loci": 0,
+  "hot_loci": [],
+  "polygenetic_loci": 232,
+  "polygenetic_states": 260,
+  "polygenesis_in_hot_loci": 0,
+  "polygenesis_in_cold_loci": 232,
+  "polygenesis_rate_hot": null,
+  "polygenesis_rate_cold": 0.232,
+  "missing_cells": 0,
+  "params": {
+    "error_rate": 0.05,
+    "n_states": 9,
+    "allow_reversion": true,
+    "loss_rate": 0,
+    "max_children": 4,
+    "n_generations": 6,
+    "extant_archetype": true,
+    "hot_loci_fraction": 0,
+    "hot_loci_factor": 0,
+    "hot_loci_states": null,
+    "contamination_rate": 0.7,
+    "contamination_strength": 0.05,
+    "lacuna_rate": 0.0,
+    "seed": 1418237892
+  }
+}

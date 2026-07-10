@@ -40,7 +40,9 @@ class ListApparatus:
     with the reference one and creating iteratively constrasting groups.
     """
 
-    def __init__(self, groups: list[VariantGroup], ref_witness: str = "ref") -> None:
+    def __init__(self,
+                 groups: list[VariantGroup],
+                 ref_witness: str = "ref") -> None:
         """Create a list apparatus from a list of variant group."""
         # The different variant groups
         self.groups = groups
@@ -48,9 +50,6 @@ class ListApparatus:
         self.witnesses: set[str] = {w for g in groups for w in g.witnesses}
         # The reference witness
         self.reference = ref_witness
-
-    def __repr__(self) -> str:
-        """Not implemented"""
 
     def error_groups(self,
                      min_size: int = 1,
@@ -70,6 +69,7 @@ class ListApparatus:
 
     def group_by_frequency(self,
                            min_group_size: int = 1,
+                           min_frequency: int = 1
                            ) -> dict[frozenset[str], dict]:
         """Returns the frequency of each group group across loci.
 
@@ -79,6 +79,8 @@ class ListApparatus:
 
         Args:
             min_group_size: Minimum number of witnesses in a group.
+            min_frequency: The minimum frequency of apparition in order to
+                consider the group variant.
 
         Returns:
             Dict mapping frozenset[str] → {
@@ -108,13 +110,21 @@ class ListApparatus:
                     frequency[key]["loci"].append(group.locus)
                     frequency[key]["reference"].append(group.reference)
 
-        return frequency
+        # Filter out groups
+        filtered_frequency = {}
+        for group in frequency.keys():
+            if frequency[group]["frequency"] >= min_frequency:
+                filtered_frequency[group] = frequency[group]
+        return filtered_frequency
 
     @classmethod
     def from_csv(cls,
                  path: str,
-                 ref_witness: str = "ref") -> "ListApparatus":
+                 ref_witness: str = "ref",
+                 delimiter: str = ",",
+                 exclude: list[str] = []) -> "ListApparatus":
         """Creates an apparat en liste from a CSV collation file.
+        Optionally include some locus by ID.
 
         The format should look like this:
                 locus,    MS_A,      MS_B,      MS_C
@@ -124,7 +134,7 @@ class ListApparatus:
         'ref_witness', which defaults to 'ref'.
         """
         with open(path, encoding="utf-8") as f:
-            reader = csv.reader(f)
+            reader = csv.reader(f, delimiter=delimiter)
             header = [h.strip() for h in next(reader)]
 
             # ── Identify column roles ──
@@ -149,21 +159,21 @@ class ListApparatus:
             for row in reader:
                 locus = row[0].strip()
                 ref = row[ref_idx].strip() if ref_idx is not None else ""
+                if locus not in exclude:
+                    # Group witnesses by shared reading
+                    reading_to_wits: dict[str, set[str]] = defaultdict(set)
+                    for idx, wit_name in witness_cols:
+                        reading = row[idx].strip().lower() if idx < len(row) else ""
+                        if reading:
+                            reading_to_wits[reading].add(wit_name)
 
-                # Group witnesses by shared reading
-                reading_to_wits: dict[str, set[str]] = defaultdict(set)
-                for idx, wit_name in witness_cols:
-                    reading = row[idx].strip() if idx < len(row) else ""
-                    if reading:
-                        reading_to_wits[reading].add(wit_name)
-
-                for reading, wits in reading_to_wits.items():
-                    groups.append(VariantGroup(
-                        locus=locus,
-                        reading=reading,
-                        witnesses=frozenset(wits),
-                        reference=ref,
-                    ))
+                    for reading, wits in reading_to_wits.items():
+                        groups.append(VariantGroup(
+                            locus=locus,
+                            reading=reading,
+                            witnesses=frozenset(wits),
+                            reference=ref,
+                        ))
 
         return cls(groups=groups,
                    ref_witness=ref_witness)
