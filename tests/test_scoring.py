@@ -3,6 +3,7 @@ for scoring behaves as expected."""
 
 import unittest
 import dendropy
+import networkx as nx
 from pyfroger.evaluate_reconstructed_trees import _all_labels, infer_witnesses, _normalize, \
     clade_based_metrics, _build_graph, average_sign_distance, \
     internal_ancestor_identification, evaluate
@@ -20,6 +21,23 @@ class TestScoringMethods(unittest.TestCase):
         self.newick_2 = "((w4,w5)w6,(w7,w8)w3,w2)w1;"
         self.newick_3 = "((w4,w5)w6,(w7,w8)w3,w2)α;"
         self.newick_4 = "((w4,w5),w6)β,(w7,w8)w3,w2)α;"
+        # Graphs for testing that the average sign distance
+        # is properly computed on a graph
+        self.graph_1 = nx.DiGraph()
+        self.graph_1.add_edges_from([
+            ("w1", "w2"), ("w1", "w3"),
+            ("w3", "w4"), ("w3", "w5"),
+            ("w5", "w6"), ("w5", "w7"),
+            ("w2", "w8"), ("w4", "w9"),
+            ("w2", "w6")
+        ])
+        self.graph_2 = nx.DiGraph()
+        self.graph_2.add_edges_from([
+            ("w1", "w2"), ("w1", "w3"),
+            ("w3", "w4"), ("w3", "w5"),
+            ("w5", "w6"), ("w5", "w7"),
+            ("w2", "w8"), ("w4", "w9"),
+        ])
         self.tree_1 = dendropy.Tree.get(
             data=self.newick_1,
             schema="newick",
@@ -142,9 +160,9 @@ class TestScoringMethods(unittest.TestCase):
             wit
         )
 
-    def test_average_sign_distance(self):
+    def test_average_sign_distance_newick_tree(self):
         """Tests that computing the average sign distance
-        behaves as expected."""
+        behaves as expected when both inputs are newick tree files."""
         computed_average_sign = average_sign_distance(
             self.newick_1,
             self.newick_2,
@@ -160,6 +178,39 @@ class TestScoringMethods(unittest.TestCase):
             computed_average_sign["skeleton_sign_distance"],
             69.048
         )
+
+    def test_average_sign_distance_graph_newick(self):
+        """Tests that computing the average sign distance behaves
+        as expected when one input is a graph and the other one
+        a newick string.
+        """
+        computed_average_sign = average_sign_distance(
+            self.graph_1,
+            self.newick_2,
+            witnesses=set([f"w{ix}" for ix
+                           in range(1, 9)])
+        )
+        self.assertEqual(
+            computed_average_sign,
+            {'skeleton_sign_distance': 57.143,
+             'n_witnesses_scored': 8})
+
+    def test_average_sign_distance_graph(self):
+        """Tests that computing the average sign distance behaves
+        as expected when the two inputs are graph.
+        """
+        computed_average_sign = average_sign_distance(
+            self.graph_1,
+            self.graph_2,
+            witnesses=set([f"w{ix}" for ix
+                           in range(1, 9)])
+        )
+        self.assertDictEqual(
+            computed_average_sign,
+            {'skeleton_sign_distance': 85.714,
+             'n_witnesses_scored': 8})
+
+    # --- INTERNAL ANCESTOR IDENTIFICATION
 
     def test_internal_ancestor_identification(self):
         """Tests the evaluation of internal ancestor identification."""
@@ -177,8 +228,11 @@ class TestScoringMethods(unittest.TestCase):
                           'missed_ancestors': ['w6'],
                           'spurious_ancestors': []})
 
-    def test_evaluate_all_metrics(self):
-        """Tests that computing all metrics behaves as expected."""
+    # --- EVALUATE ALL METRICS
+
+    def test_evaluate_all_metrics_newick(self):
+        """Tests that computing all metrics behaves as expected,
+        when inputs are in newick and representable as trees."""
         self.assertEqual(
             evaluate(self.newick_1, self.newick_2),
             {'robinson_foulds': {'rf_distance': 4,
@@ -200,7 +254,22 @@ class TestScoringMethods(unittest.TestCase):
                                        'internal_ancestor_f1': 1.0,
                                        'correctly_identified': '3/3',
                                        'missed_ancestors': [],
-                                       'spurious_ancestors': []}})
+                                       'spurious_ancestors': []},
+             'tree_representable': True})
+
+    def test_evaluate_all_metrics_newick_graph(self):
+        """Tests that computing all metrics behaves as expected,
+        when one input is in newick, the other as a graph,
+        and the graph cannot be represented as a tree."""
+        self.assertEqual(
+            evaluate(self.newick_1, self.graph_1),
+            {'robinson_foulds': None,
+             'roos_sign_distance':
+             {'skeleton_sign_distance': 69.048,
+              'n_witnesses_scored': 8},
+             'internal_ancestors': None,
+             'tree_representable': False}
+        )
 
 
 if __name__ == "__main__":

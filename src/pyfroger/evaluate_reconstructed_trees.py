@@ -3,7 +3,7 @@ Compute different scoring metrics for comparing two different stemma trees.
 """
 
 import re
-from typing import Union
+from typing import Optional, Union
 import dendropy
 import networkx as nx
 from dendropy.calculate import treecompare
@@ -296,26 +296,86 @@ def witness_dist(dd, w, a, b):
     return dd[w[a]].get(w[b], -1)
 
 
-def average_sign_distance(true_newick: str,
-                          recon_newick: str,
-                          witnesses: set[str]) -> dict[str, Union[int, float]]:
-    """Compute the average sign distance between the reference tree
-    represented as a newick string and the reconstructed tree as a
-    newick.
+def _graph_from_newick(newick: str, witnesses: set[str]):
+    """Transform a newick string into a networkx graph (class Graph).
 
     Args:
-        true_newick (str): The reference tree in Newick format.
-        recon_newick (str): The reconstructed tree in Newick format.
+        newick (str): The newick string to convert.
+        witnesses (set[str]): The set of witnesses to use.
+
+    Returns:
+        tuple: Graph and witnesses set.
+    """
+    t = dendropy.Tree.get(data=newick, schema="newick",
+                          suppress_internal_node_taxa=False)
+    g = nx.Graph()
+    wit, ids = {}, {}
+    for k, nd in enumerate(t.preorder_node_iter()):
+        ids[nd] = k
+        g.add_node(k)
+        lab = nd.taxon.label if nd.taxon is not None else nd.label
+        if lab is not None and lab in witnesses:
+            wit[lab] = k
+    for nd in t.preorder_node_iter():
+        if nd.parent_node is not None:
+            g.add_edge(ids[nd.parent_node], ids[nd])
+    return g, wit
+
+
+def _graph_from_nx(graph: nx.Graph, witnesses: set[str]):
+    """Add the proper label (i.e. witness name) given an input graph.
+
+    Args:
+        graph (nx.Grap): The input graph to annotate.
+        witnesses (set[str]): The set of witnesses to use.
+
+    Returns:
+        tuple: Graph and witnesses set.
+    """
+    g = graph.to_undirected() if graph.is_directed() else graph
+    wit = {n: n for n in g.nodes if n in witnesses}
+    return g, wit
+
+
+def _prepare(source: Union[str, nx.Graph], witnesses: set[str]):
+    """Prepare an input for average distance computation,
+    depending on if they are a newick string or a networkx graph.
+
+    Args:
+        source: The input source, either as a newick string or an already
+            constructed network graph.
+        witnesses (set[str]): The set of witnesses to use.
+
+    Returns:
+        tuple: Graph and witnesses set prepared for computation of distances.
+    """
+    if isinstance(source, str):
+        return _graph_from_newick(source, witnesses)
+    if isinstance(source, nx.Graph):
+        return _graph_from_nx(source, witnesses)
+    raise TypeError(f"Unsupported input format {type(source)!r}")
+
+
+def average_sign_distance(true_source: Union[str, nx.Graph],
+                          recon_source: Union[str, nx.Graph],
+                          witnesses: set[str]) -> dict[str, Union[int, float]]:
+    """Compute the average sign distance between the reference tree
+    represented either as a newick string or a networkx Graph 
+    and the reconstructed tree as either a newick string or a networkx Graph.
+
+    Args:
+        true_source (Union[str, nx.Graph]): The reference tree
+        recon_source (Union[str, nx.Graph]): The reconstructed tree
         witnesses (set[str]): The list of witnesses as a set.
 
     Returns:
-        dict[str, Union[int, float]]: The finale score as a percentage and the number 
-            of analyzed witnesses.
+        dict[str, Union[int, float]]: The finale score as a percentage and
+        the number of analyzed witnesses.
     """
     # Transform each tree in a graph for computing the shortest
     # path
-    gt, wt = _build_graph(true_newick, witnesses)
-    gp, wp = _build_graph(recon_newick, witnesses)
+    gt, wt = _prepare(true_source, witnesses)
+    gp, wp = _prepare(recon_source, witnesses)
     common = sorted(set(wt) & set(wp))
     dt = dict(nx.all_pairs_shortest_path_length(gt))
     dp = dict(nx.all_pairs_shortest_path_length(gp))
@@ -396,36 +456,100 @@ def internal_ancestor_identification(true_newick: str,
         "spurious_ancestors": sorted(fp),
     }
 
+# --- EVALUATE USING ALL METRICS
 
-def evaluate(true_newick: str,
-             recon_newick: str,
-             witnesses=None,
-             rooted=False):
-    """Compute all the available metrics per type of metrics.
+
+def _graph_to_newick(g: nx.DiGraph) -> str:
+    """Graphe arborescent -> Newick, labels internes préservés."""
+    roots = [n for n in g.nodes if g.in_degree(n) == 0]
+    if len(roots) != 1:
+        raise ValueError(f"racine non unique: {roots}")
+
+    def rec(n):
+        ch = sorted(g.successors(n))
+        return f"({','.join(rec(c) for c in ch)}){n}" if ch else str(n)
+
+    return rec(roots[0]) + ";"
+
+
+def _as_newick(src: Union[str, nx.Graph]) -> Optional[str]:
+    """Transform an input source (either string or nx.Graphs) into a
+    newick file.
+    If the file is already in newick format, it is returned
+    without transformation.
+    Note that if the tree is contaminated, the transformation fails
+    as newick does not accept duplicated taxa.
 
     Args:
-        true_newick (str): The reference tree in Newick format.
-        recon_newick (str): The reconstructed tree in Newick format.
-        witnesses (set[str]): The list of witnesses as a set.
-            If set to None, the list of witnesses is automatically inferred
-            from the newick files.
+        src (Union[str, nx.Graph]): The input source to convert.
 
     Returns:
-        dict[str, Any]: the metric and their value.
+        Optional[str]: The converted source. If the input graph cannot
+            be transformed into a tree, it returns None.
     """
-    t_true = dendropy.Tree.get(data=true_newick, schema="newick",
-                               suppress_internal_node_taxa=False)
-    t_rec = dendropy.Tree.get(data=recon_newick, schema="newick",
-                              suppress_internal_node_taxa=False)
-    if witnesses is None:
-        witnesses = infer_witnesses(t_true, t_rec)
+    if isinstance(src, str):
+        return src
+    if isinstance(src, nx.Graph):
+        if src.is_directed() and nx.is_arborescence(src):
+            return _graph_to_newick(src)
+        return None
+    raise TypeError(f"source non supportée: {type(src)!r}")
 
-    rf_block = clade_based_metrics(true_newick, recon_newick,
-                                   witnesses=witnesses, rooted=rooted)
-    roos_block = average_sign_distance(true_newick, recon_newick, witnesses)
-    anc_block = internal_ancestor_identification(true_newick, recon_newick,
-                                                 witnesses)
+
+def _witnesses_of(src: Union[str, nx.Graph]) -> set[str]:
+    """Given a tree represented as a newick or a graph,
+    obtain the list of witnesses.
+    
+    Args:
+        src (Union[str, nx.Graph]): The tree or the graph to
+            return.
+    
+    Returns:
+        set[str]: The list of witnesses.
+    """
+    if isinstance(src, nx.Graph):
+        return set(src.nodes)
+    t = dendropy.Tree.get(data=src, schema="newick",
+                          suppress_internal_node_taxa=False)
+    return {lab for nd in t.preorder_node_iter()
+            if (lab := (nd.taxon.label if nd.taxon is not None else nd.label))}
+
+
+def evaluate(true_source: Union[str, nx.Graph],
+             recon_source: Union[str, nx.Graph],
+             witnesses: Optional[set[str]] = None,
+             rooted: bool = False):
+    """Compute all available metrics and returns them as a
+    dictionary. Note that if the tree has reticulation (i.e.
+    contamination), the RF distance is set to None.
+
+    Args:
+        true_source (Union[str, nx.Graph]):
+        recon_source (Union[str, nx.Graph]):
+        witnesses (set[str]): The list of witnesses as a set.
+            If set to None, it is automatically computed from the
+            input witnesses.
+        rooted (bool): Whether or not the RF distance should be
+            computed on a rooted tree..
+        
+    Returns:
+        dict[str, ?]: The computed scores.
+    """
+    tn, rn = _as_newick(true_source), _as_newick(recon_source)
+
+    if witnesses is None:
+        witnesses = _witnesses_of(true_source) & _witnesses_of(recon_source)
+
+    roos_block = average_sign_distance(true_source, recon_source, witnesses)
+
+    if tn is None or rn is None:
+        rf_block = anc_block = None
+    else:
+        rf_block = clade_based_metrics(tn, rn, witnesses=witnesses,
+                                       rooted=rooted)
+        anc_block = internal_ancestor_identification(tn, rn, witnesses)
 
     return {"robinson_foulds": rf_block,
             "roos_sign_distance": roos_block,
-            "internal_ancestors": anc_block}
+            "internal_ancestors": anc_block,
+            "tree_representable": tn is not None and rn is not None}
