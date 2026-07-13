@@ -170,17 +170,18 @@ to_froger_csv("../../datasets/artificial_scribes/heinrichi.csv",
 
 apparatus = ListApparatus.from_csv(
     "../../datasets/artificial_scribes/heinrichi.csv",
-    ref_witness="Bd",          # no extant archetype in Heinrichi; set per your
+    ref_witness="V",          # no extant archetype in Heinrichi; set per your
                               # orientation convention
     delimiter=",")
 
 
-stemma = UnorientedStemma(list_apparatus=apparatus,
-                          min_frequency=10,
-                          verbose=False
+stemma = UnorientedStemma(apparatus=apparatus,
+                          min_frequency=3,
+                          verbose=False,
+                          seed=10
                           )
-stemma.build_tree(anomaly_method="raw_cutoff",
-                  resolve_anomaly_threshold=1)
+stemma.build_tree(anomaly_method="two_by_two",
+                  anomaly_threshold=.3)
 # pprint(stemma.children_of)
 # print(stemma.to_newick())
 # stemma.display_tree()
@@ -189,9 +190,10 @@ stemma.build_tree(anomaly_method="raw_cutoff",
 
 # Froger to dendropy for get witnesses
 
-print(stemma.display_variant_groups())
+stemma.display_tree()
+# print(stemma.display_variant_groups())
 
-# print(stemma.to_extended_newick())
+print(stemma.to_newick())
 
 # froger_tree = dendropy.Tree.get(data=stemma.to_newick(), schema="newick",
 #                                 suppress_internal_node_taxa=False)
@@ -199,3 +201,5 @@ print(stemma.display_variant_groups())
 # print(average_sign_distance(true_source=graph_heinrichi,
 #                             recon_source=stemma.to_newick(),
 #                             witnesses=infer_witnesses(froger_tree)))
+
+print(evaluate(true_source=graph_heinrichi, recon_source=stemma.to_networkx()))

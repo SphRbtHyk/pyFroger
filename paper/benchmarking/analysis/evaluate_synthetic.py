@@ -75,11 +75,11 @@ DESIGN = {
         "fname": lambda p, ix: f"tree_{p['hot_loci_fraction']}_{ix}",
         "label": lambda p: f"hot={p['hot_loci_fraction']}",
     },
-    # "scenario_4": {
-    #     "grid": [{"contamination_rate": c} for c in (0.1, 0.2, 0.3, 0.7)],
-    #     "fname": lambda p, ix: f"tree_{p['contamination_rate']}_{ix}",
-    #     "label": lambda p: f"cont={p['contamination_rate']}",
-    # },
+    "scenario_4": {
+        "grid": [{"contamination_rate": c} for c in (0.1, 0.2, 0.3, 0.7)],
+        "fname": lambda p, ix: f"tree_{p['contamination_rate']}_{ix}",
+        "label": lambda p: f"cont={p['contamination_rate']}",
+    },
     # "scenario_5": {
     #     "grid": [{"contamination_rate": c, "hot_loci_fraction": h}
     #              for c in (0.1, 0.2, 0.3, 0.7) for h in (0.1, 0.2, 0.5)],
