@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Titre provisoire : le titre laissé dans la demande était vide, à remplacer librement. -->
+<title>La méthode par les groupes</title>
+<style>
+  :root {
+    --ink: #1f2937; --muted: #6b7280; --accent: #d6336c; --accent-dark: #9f2649;
+    --bg: #f8fafc; --card: #ffffff; --border: #e5e7eb;
+    --green: #047857; --green-bg: #ecfdf5;
+    --amber-bg: #fffbeb; --amber-ink: #92400e;
+    --blue: #1d4ed8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    line-height: 1.6; padding: 0 0 4rem;
+  }
+  .hero {
+    background: linear-gradient(135deg, #1e1b4b 0%, #4c1d4f 60%, #831843 100%);
+    color: #fdf2f8; padding: 3.5rem 1.25rem 3rem; text-align: center;
+  }
+  .hero h1 {
+    font-size: 2.3rem; margin: 0 0 .5rem; font-weight: 600; letter-spacing: .01em;
+  }
+  .hero p.sub {
+    margin: 0 auto; max-width: 46rem; font-size: 1.08rem; color: #fbcfe8;
+  }
+  .hero .meta {
+    margin-top: 1.1rem; font-size: .85rem; color: #e9d5ff;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+  main { max-width: 52rem; margin: 0 auto; padding: 0 1.25rem; }
+  section.card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.75rem 2rem 2rem; margin-top: 2rem;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, .06);
+  }
+  h2 { font-size: 1.5rem; margin: 0 0 .75rem; }
+  h2 .num {
+    display: inline-block; background: var(--accent); color: #fff;
+    font-family: ui-sans-serif, system-ui, sans-serif; font-size: .95rem; font-weight: 700;
+    border-radius: 999px; width: 1.7em; height: 1.7em; line-height: 1.7em;
+    text-align: center; margin-right: .5rem; vertical-align: .08em;
+  }
+  h3 { font-size: 1.12rem; margin: 1.6rem 0 .5rem; font-family: ui-sans-serif, system-ui, sans-serif; }
+  p { margin: .6rem 0; }
+  .lead { font-size: 1.05rem; }
+  .kicker {
+    font-family: ui-sans-serif, system-ui, sans-serif; text-transform: uppercase;
+    letter-spacing: .1em; font-size: .72rem; font-weight: 700; color: var(--accent);
+    margin: 0 0 .2rem;
+  }
+  code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: .88em; background: #f1f5f9; border: 1px solid #e2e8f0;
+    border-radius: 4px; padding: .06em .35em;
+  }
+  pre {
+    background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: 1rem 1.2rem;
+    overflow-x: auto; line-height: 1.5; font-size: .84rem;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  pre .c { color: #94a3b8; font-style: italic; }
+  pre .s { color: #fbbf24; }
+  pre .k { color: #f472b6; }
+  pre .r { color: #86efac; }
+  table { border-collapse: collapse; width: 100%; margin: .75rem 0 1rem;
+    font-family: ui-sans-serif, system-ui, sans-serif; font-size: .87rem; }
+  th, td { border: 1px solid var(--border); padding: .5rem .7rem; text-align: left; vertical-align: top; }
+  thead th { background: #f1f5f9; font-weight: 600; }
+  tbody tr:nth-child(even) td { background: #fbfdff; }
+  .callout {
+    border-left: 4px solid var(--accent); background: #fdf2f8;
+    border-radius: 0 8px 8px 0; padding: .8rem 1rem; margin: 1rem 0;
+  }
+  .callout.green { border-color: var(--green); background: var(--green-bg); }
+  .callout.amber { border-color: #d97706; background: var(--amber-bg); }
+  .callout .t {
+    font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 700;
+    font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; display: block;
+    margin-bottom: .25rem; color: var(--accent-dark);
+  }
+  .callout.green .t { color: var(--green); }
+  .callout.amber .t { color: var(--amber-ink); }
+  .flow { display: flex; flex-wrap: wrap; gap: .6rem; align-items: stretch; margin: 1rem 0; }
+  .step {
+    flex: 1 1 11rem; background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 8px;
+    padding: .8rem .9rem; font-family: ui-sans-serif, system-ui, sans-serif; font-size: .85rem;
+  }
+  .step b { color: var(--accent-dark); }
+  .step .n {
+    display: inline-block; background: var(--accent); color: #fff; border-radius: 999px;
+    width: 1.5em; height: 1.5em; line-height: 1.5em; text-align: center; font-weight: 700;
+    font-size: .8rem; margin-bottom: .3rem;
+  }
+  .arrow { align-self: center; color: var(--accent); font-size: 1.3rem; }
+  figure { margin: 1rem 0; text-align: center; }
+  figcaption { font-size: .83rem; color: var(--muted); margin-top: .4rem;
+    font-family: ui-sans-serif, system-ui, sans-serif; }
+  .sigla { font-family: ui-monospace, Menlo, monospace; font-size: .9em; }
+  footer.page {
+    margin-top: 2.5rem; padding-top: 1rem; border-top: 3px double var(--border);
+    color: var(--muted); font-size: .85rem; font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+  @media print {
+    body { background: #fff; }
+    .hero { background: #1e1b4b; -webkit-print-color-adjust: exact; }
+    section.card { box-shadow: none; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>La méthode des groupes</h1>
+  <p class="sub">Reconstruction du stemma d'une tradition manuscrite à partir de la collation.</p>
+  d'après J. Froger, <em>La critique des textes et son automatisation</em>, 1968.</p>
+</header>
+
+<main>
+
+<!-- ================================================================ -->
+<section class="card">
+  <p class="kicker">En bref</p>
+  <p class="lead">Un stemma est l'arbre généalogique des manuscrits d'un même texte.
+  La méthode des groupes le reconstruit en faisant l'hypothèse que :
+  <strong>deux manuscrits qui partagent les mêmes fautes de copie descendent probablement
+  d'un modèle commun</strong>.</p>
+  <p>L'algorithme regroupe les témoins par leurs fautes partagées,
+  emboîte ces groupes les uns dans les autres, et lit la généalogie dans cet emboîtement :
+  <strong>un groupe qui en contient un autre est son ancêtre</strong>. Quand deux groupes
+  se croisent sans s'emboîter, c'est le signe d'une <strong>contamination</strong>, le stemma cesse d'être un simple arbre et l'utilisateur doit analyser la situation plus en détail.</p>
+⚠️ PyFroger retourne <strong>l'enchaînement des manuscrits</strong> et n'est pas capable <strong>de donner un sens à celui-ci</strong>, ce qui peut seulement être fait par l'étude des variantes individuelles afin de détecter une faute, et donc le sens hypothétique de la transmission.
+</section>
+
+<!-- ================================================================ -->
+<section class="card">
+  <h2><span class="num">1</span>Les trois principes</h2>
+
+  <h3>Une faute partagée est un indice de parenté</h3>
+  <p>On choisit d'abord un <strong>témoin de référence</strong> (en pratique, le manuscrit le plus complet).
+    Toute leçon qui s'en écarte est traitée comme une <em>faute</em>. Si trois manuscrits <span class="sigla">A</span>,
+  <span class="sigla">B</span> et <span class="sigla">C</span> portent la même faute aux
+  mêmes endroits, ils forment un <strong>groupe de fautes</strong> (et probablement une famille).
+  Le nombre de lieux-variants (<em>loci</em>) où la faute apparaît mesure la
+  <strong>solidité</strong> du groupe&nbsp;: une faute attestée une seule fois peut être une
+  coïncidence (une <em>polygenèse</em> : la même erreur commise deux fois indépendamment),
+  mais lorsqu'attestée plusieurs fois, c'est une parenté.</p>
+
+  <h3>L'emboîtement permet de mesurer la généalogie</h3>
+  <p>Si toutes les fautes de <span class="sigla">A, B</span> sont aussi des fautes de
+  <span class="sigla">A, B, C</span>, le groupe <span class="sigla">A, B</span> est
+  <em>contenu</em> dans <span class="sigla">A, B, C</span>. En emboîtant tous les groupes, on obtient une hiérarchie, c'est à dire un enchaînement entre manuscrits: ici, A et B sont liés.</p>
+  <figure>
+    <svg viewBox="0 0 720 190" role="img" aria-label="Deux groupes emboîtés donnent deux branches">
+      <defs>
+        <style>
+          text { font-family: Georgia, serif; fill: #1f2937; }
+          .lbl { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; fill: #6b7280; }
+        </style>
+      </defs>
+      <ellipse cx="150" cy="80" rx="110" ry="44" fill="#fdf2f8" stroke="#d6336c" stroke-width="1.6"/>
+      <ellipse cx="150" cy="92" rx="58"  ry="32" fill="#ecfdf5" stroke="#047857" stroke-width="1.6"/>
+      <text x="150" y="46" text-anchor="middle" font-size="14">groupe « A, B, C » ×2</text>
+      <text x="150" y="100" text-anchor="middle" font-size="14">« A, B » ×2</text>
+      </svg>
+  </figure>
+
+  <h3>Deux groupes qui se croisent = une contamination</h3>
+  <p>Si <span class="sigla">A, B, F</span> partagent certaines fautes et
+  <span class="sigla">D, E, F</span> d'autres, <span class="sigla">F</span> appartient aux deux
+  familles sans qu'aucune ne contienne l'autre : <span class="sigla">F</span> a été copié en
+  consultant plusieurs modèles. Cette transmission ne peut pas être représentée par un arbre. Le
+  programme la détecte, la signale, et selon le traitement choisi, l'écarte (polygenèse
+  présumée) ou la conserve.</p>
+</section>
+
+<!-- ================================================================ -->
+<section class="card">
+  <h2><span class="num">2</span>Les étapes de la reconstruction</h2>
+  <div class="flow">
+    <div class="step"><span class="n">1</span><br><b>Collationner</b><br>Un tableau CSV :
+      chaque ligne un lieu-variant, chaque colonne un manuscrit, avec une colonne de référence.</div>
+    <span class="arrow">→</span>
+    <div class="step"><span class="n">2</span><br><b>Apparat en liste</b><br>
+      <code>ListApparatus</code> extrait les groupes de témoins qui partagent chaque leçon fautive,
+      et compte leurs occurrences.</div>
+    <span class="arrow">→</span>
+    <div class="step"><span class="n">3</span><br><b>Treillis des groupes</b><br>
+      <code>UnorientedStemma</code> emboîte les groupes par inclusion et repère les croisements.</div>
+    <span class="arrow">→</span>
+    <div class="step"><span class="n">4</span><br><b>Arbre</b><br>
+      <code>build_tree()</code> règle les anomalies, pose les hyparchétypes (α, β, γ…) et
+      renvoie le stemma.</div>
+    <span class="arrow">→</span>
+    <div class="step"><span class="n">5</span><br><b>Explorer &amp; exporter</b><br>
+      Rendu console, Newick, Newick étendu, Graphviz ou réseau networkx.</div>
+  </div>
+
+  <h3>Le format d'entrée</h3>
+  <p>Le CSV attendu contient un identifiant de lieu-variant (<em>locus</em>), puis une
+  colonne par témoin, dont la colonne du manuscrit de référence (nommée <code>ref</code> par
+  défaut) :</p>
+  <pre><span class="c"># collation.csv</span>
+locus,A,B,C,D,E,ref
+1,regnun,regnun,regnun,regnum,regnum,regnum
+2,domine,domine,domine,domini,domini,domini
+3,avides,avides,avidi,avidi,avidi,avidi
+4,multum,multum,bene,bene,bene,bene
+5,cantat,cantat,cantat,cantant,cantant,cantat
+6,et,et,et,atque,atque,et</pre>
+  <p class="callout amber"><span class="t">Bon à savoir</span>
+  Les leçons sont comparées <strong>sans tenir compte de la casse</strong> (tout est ramené en
+  minuscules). 
+  <h3>Le code minimal</h3>
+  <pre><span class="k">from</span> pyfroger.list_apparatus <span class="k">import</span> ListApparatus
+<span class="k">from</span> pyfroger.group_method <span class="k">import</span> UnorientedStemma
+
+apparat = ListApparatus.from_csv(<span class="s">"collation.csv"</span>, ref_witness=<span class="s">"ref"</span>)
+stemma   = UnorientedStemma(apparat)
+
+stemma.build_tree()          <span class="c"># reconstruit l'arbre et le range dans stemma.tree</span>
+stemma.display_tree()        <span class="c"># l'affiche joliment dans la console (rich)</span></pre>
+</section>
+
+<!-- ================================================================ -->
+<section class="card">
+  <h2><span class="num">3</span>Un exemple complet, pas à pas</h2>
+  <p>Prenons la collation ci-dessus : six lieux-variants, cinq témoins, une référence.
+  Après lecture du CSV, l'apparat en liste contient trois groupes de fautes :</p>
+  <table>
+    <thead><tr><th>Groupe de témoins</th><th>Faute partagée</th><th>Attestée à…</th></tr></thead>
+    <tbody>
+      <tr><td class="sigla">A, B, C</td><td><em>regnun</em>, <em>domine</em></td><td>2 loci</td></tr>
+      <tr><td class="sigla">A, B</td><td><em>avides</em>, <em>multum</em></td><td>2 loci</td></tr>
+      <tr><td class="sigla">D, E</td><td><em>cantant</em>, <em>atque</em></td><td>2 loci</td></tr>
+    </tbody>
+  </table>
+  <p>PyFroger propose l'enchaînement suivant :</p>
+  <pre><span class="r">ref  (A, B, C, D, E, ref)</span>
+├── C  (A, B, C)  ×2 🔴
+│   └── α  (A, B)  ×2 🔴
+│       ├── A
+│       └── B
+└── β  (D, E)  ×2 🔴
+    ├── D
+    └── E</pre>
+  <p>Lecture importants :</p>
+  <ul>
+    <li>Le multiplieur associé à chaque famille évalue la fréquence d'apparition de variants partagés. Plus celui-ci est élevé, plus le groupe est bien attesté.</li>
+    <li><strong>Le nœud <span class="sigla">C</span> porte le nom d'un vrai manuscrit.</strong>
+    Dans le groupe <span class="sigla">A, B, C</span>, une fois retirée la sous-famille
+    <span class="sigla">A, B</span>, il reste un seul témoin « libre » :
+    <span class="sigla">C</span>. C'est lui le plus proche de l'ancêtre du groupe il peut le
+    représenter, et le nœud prend son nom.</li>
+    <li><strong>Les nœuds sans témoin libre prennent une lettre grecque</strong> —
+    <span class="sigla">α</span>, <span class="sigla">β</span>, puis
+    <span class="sigla">α2</span>, <span class="sigla">β2</span>… Ce sont des
+    <em>hyparchétypes</em> : des ancêtres perdus, reconstitués par la méthode.</li>
+  </ul>
+  <p>Le même stemma, en format Newick (utilisable par la plupart des logiciels de phylogénie) :</p>
+  <pre><span class="s">(((A,B)α)C,(D,E)β)ref;</span></pre>
+</section>
+
+<!-- ================================================================ -->
+<section class="card">
+  <h2><span class="num">4</span>Quand les groupes se croisent : la contamination</h2>
+  <p>Si nous supposons un sixième témoin <span class="sigla">F</span> qui
+  partage les fautes de la grande famille <span class="sigla">A, B, C</span> et certaines
+  fautes de la famille <span class="sigla">D, E</span>. Les groupes de fautes deviennent :</p>
+  <table>
+    <thead><tr><th>Groupe</th><th>Commentaire</th></tr></thead>
+    <tbody>
+      <tr><td class="sigla">A, B, C, F</td><td rowspan="1">la grande famille, avec <span class="sigla">F</span> en plus</td></tr>
+      <tr><td class="sigla">A, B</td><td>la sous-famille, inchangée</td></tr>
+      <tr><td class="sigla">D, E, F</td><td>l'autre famille, <em>elle aussi</em> avec <span class="sigla">F</span></td></tr>
+    </tbody>
+  </table>
+  <p><span class="sigla">F</span> se retrouve dans deux groupes qui se croisent sans s'emboîter et peut être lié à de la
+  contamination ou de la polygénèse. Selon le traitement demandé (<code>anomaly_method</code>), le programme traite les cas différemment :</p>
+  <table>
+    <thead><tr><th>Méthode</th><th>Gestion de la contamination</th></tr></thead>
+    <tbody>
+      <tr><td><code>raw_cutoff</code><br><em>(défaut)</em></td>
+          <td>Écarte comme polygenèse tout groupe en conflit attesté à moins de
+              <code>anomaly_threshold</code> loci (2 par défaut : un accord d'un seul locus
+              perd son conflit).</td></tr>
+      <tr><td><code>two_by_two</code></td>
+          <td>Dans chaque paire en conflit, ne garde que le groupe le mieux attesté.
+              En cas d'égalité, les fautes ne décident pas : le perdant est tiré au sort
+              (si un <code>seed</code> a été donné) ou pris dans l'ordre des sigles —
+              et le choix arbitraire est signalé.</td></tr>
+      <tr><td><code>probabilistic_cutoff</code></td>
+          <td>Écarte un groupe dont la part des loci du couple tombe sous
+              <code>anomaly_threshold</code> (<em>probabilité</em> entre 0 et 1, méthode recommandée par Froger).</tr>
+      <tr><td><code>none</code></td>
+          <td>Ne rien écarter : la contamination est retenue et apparaît comme une
+              réticulation (une arête en plus de l'arbre).</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Vérifier la contamination avant de trancher</h3>
+  <p>Avant de laisser le programme décider, on peut regarder soi-même les leçons en cause :</p>
+  <pre>stemma.report_contamination()   <span class="c"># chaque paire croisée, ses leçons et ses loci</span>
+stemma.display_contamination()  <span class="c"># idem + groupes écartés + réticulations</span>
+stemma.display_variant_groups() <span class="c"># toutes les fautes de la tradition, groupe par groupe</span>
+stemma.display_summary()        <span class="c"># l'essentiel en un tableau</span></pre>
+  <p>Les lieux-variants des groupes en conflit sont aussi accessibles par
+  <code>stemma.contamination_loci()</code> — pratique pour retourner les voir dans le texte.</p>
+</section>
+
+<!-- ================================================================ -->
+<section class="card">
+  <h2><span class="num">5</span>Paramètres du programme</h2>
+  <table>
+    <thead><tr><th>Paramètre</th><th>Classe</th><th>Documentation</th></tr></thead>
+    <tbody>
+      <tr><td><code>min_frequency</code></td><td><code>UnorientedStemma(...)</code></td>
+          <td>Nombre minimal de loci pour qu'un groupe entre dans le treillis. Élever la barre
+          élimine le bruit (accords fortuits) mais peut faire perdre des petites familles.</td></tr>
+      <tr><td><code>anomaly_method</code>, <code>anomaly_threshold</code></td><td><code>build_tree(...)</code></td>
+          <td>Le traitement des croisements de groupes (voir section 4).</td></tr>
+      <tr><td><code>root_witness</code></td><td><code>build_tree(...)</code></td>
+          <td>Le témoin placé à la racine — la référence par défaut. C'est un choix éditorial :
+          le stemma est « non orienté », il montre les parentés, pas le sens de la copie.</td></tr>
+      <tr><td><code>seed</code></td><td><code>UnorientedStemma(...)</code></td>
+          <td>Fixe le tirage au sort des égalités en <code>two_by_two</code>, pour des résultats
+          reproductibles ; sinon, l'ordre des sigles tranche (et l'arbitraire est signalé).</td></tr>
+      <tr><td><code>verbose</code></td><td><code>UnorientedStemma(...)</code></td>
+          <td>Affiche les lectures contaminées au moment de la résolution.</td></tr>
+      <tr><td><code>support_bands</code></td><td><code>UnorientedStemma(...)</code></td>
+          <td>Les seuils des marqueurs de solidité — voir ci-dessous.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Juger la solidité d'un groupe</h3>
+  <p>Chaque nœud du rendu porte son nombre de loci et un marqueur de couleur :</p>
+  <pre>🔴 &lt;10 loci      spurious   <span class="c">— groupe artéfactuel, à considérer avec prudence</span>
+🟠 10–19 loci    doubtful    <span class="c">— douteux</span>
+🟡 20–49 loci    moderate    <span class="c">— solide</span>
+🟢 ≥50 loci      strong      <span class="c">— incontestable</span></pre>
+  <p>Ces bandes sont relatives à la taille de votre apparat : sur cent lieux-variants,
+  un groupe soutenu à 15 loci est faible ; sur six, c'est la moitié de la tradition.
+  Passez vos propres seuils à <code>UnorientedStemma(support_bands=...)</code> sous la forme
+  de triplets <code>(borne_supérieure, marqueur, nom)</code>.</p>
+
+  <h3>Les fautes singulières</h3>
+  <p>Une faute portée par un seul manuscrit (une <em>lectio singularis</em>) ne crée pas de
+  groupe : elle ne dit rien des parentés. <code>display_variant_groups()</code> ne les montre
+  pas par défaut (<code>min_group_size=2</code>) ; l'apparat les conserve néanmoins, et
+  <code>apparat.error_groups()</code> permet de les lister si besoin.</p>
+</section>
+
+<!-- ================================================================ -->
+<section class="card">
+  <h2><span class="num">6</span>Export du résultat</h2>
+  <p>Une fois l'arbre construit, tout est disponible depuis le même objet :</p>
+  <table>
+    <thead><tr><th>Méthode</th><th>Sortie</th></tr></thead>
+    <tbody>
+      <tr><td><code>render_tree()</code> / <code>display_tree()</code></td><td>Console (rich)</td>
+         </tr>
+      <tr><td><code>to_newick()</code></td><td>Newick (perds la réticulation)</td>
+      </tr>
+      <tr><td><code>to_extended_newick()</code></td><td>Newick étendu</td>
+          </tr>
+      <tr><td><code>to_dot()</code></td><td>Graphviz</td>
+      </tr>
+      <tr><td><code>to_networkx()</code></td><td>Python (networkx)</td>
+          </tr>
+    </tbody>
+  </table>
+  <pre><span class="c"># Exemple de sortie :</span>
+apparat = ListApparatus.from_csv(<span class="s">"collation.csv"</span>, ref_witness=<span class="s">"ref"</span>)
+stemma  = UnorientedStemma(apparat)
+stemma.build_tree()
+open(<span class="s">"stemma.dot"</span>, <span class="s">"w"</span>).write(stemma.to_dot())
+<span class="c"># puis dans un terminal :  dot -Tsvg stemma.dot -o stemma.svg</span></pre>
+</section>
+
+<!-- ================================================================ -->
+<section class="card">
+  <h2><span class="num">7</span>⚠️ Points méthodologiques</h2>
+  <ul>
+    <li><strong>Le choix de la référence est éditorial.</strong>, seule la notion de faute permettra d'orienter de manière postérieure le stemma.</li>
+    <li> Le seuil de fréquence permet de faire la différence entre <strong>polygenèse et contamination.</strong> </li>
+    <li><strong>Le stemma est « non orienté ».</strong> Il indique qui descend de qui dans
+    l'ordre des groupes ; le <em>sens</em> de la transmission (qui a copié qui) doit être décidé par l'examen des fautes.</li>
+  </ul>
+</section>
+
+</main>
+</body>
+</html>
